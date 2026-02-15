@@ -10,6 +10,9 @@
 #include <driver/i2c.h>
 
 #endif
+#if __has_include(<driver/i2c_master.h>)
+#include <driver/i2c_master.h>
+#endif
 
 #include <cstdint>
 #include <cstddef>
@@ -128,6 +131,9 @@ namespace m5
     i2c_port_t getPort(void) const { return _port_num; }
     int8_t getSDA(void) const { return _pin_sda; }
     int8_t getSCL(void) const { return _pin_scl; }
+  #if __has_include(<driver/i2c_master.h>)
+    i2c_master_bus_handle_t getBusHandle(void) const;
+  #endif
 
     bool isEnabled(void) const { return _port_num >= 0; }
 

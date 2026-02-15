@@ -4,6 +4,9 @@
 #include "I2C_Class.hpp"
 
 #include <M5GFX.h>
+#if __has_include(<driver/i2c_master.h>)
+#include <driver/i2c_master.h>
+#endif
 
 namespace m5
 {
@@ -122,4 +125,11 @@ namespace m5
     }
     return true;
   }
+
+#if __has_include(<driver/i2c_master.h>)
+  i2c_master_bus_handle_t I2C_Class::getBusHandle(void) const
+  {
+    return m5gfx::i2c::getBusHandle(_port_num);
+  }
+#endif
 }
